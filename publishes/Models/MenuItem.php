@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider;
+use App\Http\Terranet\Administrator\Navigation\Providers\RoutesProvider;
 use Illuminate\Database\Eloquent\Model;
 use Terranet\Navigation\URLContainer;
-use Terranet\Navigation\Providers\LinksProvider;
-use Terranet\Navigation\Providers\RoutesProvider;
 use Terranet\Navigation\Wrappers\Eloquent;
 use Terranet\Navigation\Wrappers\Link;
 use Terranet\Navigation\Wrappers\NavigationItem;
