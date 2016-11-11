@@ -20,11 +20,11 @@
                                 <?php
                                 $expanded = $loop->index == 0;
                                 ?>
-                                @if (get_class($provider) == \Terranet\Navigation\Providers\LinksProvider::class)
+                                @if (class_basename($provider) == 'LinksProvider')
                                     <div class="panel box box-primary">
                                         <div class="box-header with-border">
                                             <h4 class="box-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#links-list" aria-expanded="false" class="collapsed">{{ app(\Terranet\Navigation\Providers\LinksProvider::class)->name() }}</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#links-list" aria-expanded="false" class="collapsed">{{ app(\App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider::class)->name() }}</a>
                                             </h4>
                                         </div>
                                         <div id="links-list" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
