@@ -3,11 +3,10 @@
 namespace App\Http\Terranet\Administrator\Navigation\Providers;
 
 use Illuminate\Support\Collection;
-use Terranet\Navigation\AbstractProvider;
-use Terranet\Navigation\Providers\ProviderContract;
+use Terranet\Navigation\Providers\Provider;
 use Terranet\Navigation\Wrappers\Eloquent;
 
-class DummyClass extends AbstractProvider implements ProviderContract
+class DummyClass extends Provider
 {
     /**
      * Provider name.
