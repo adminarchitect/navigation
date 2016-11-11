@@ -93,7 +93,6 @@
 
                 <ol id="navigation-items" class="sortable" style="padding: 10px;">
                     @foreach($item as $link)
-                        {{--{{ dump($link) }}--}}
                         <li style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;" class="ui-state-default" data-id="{{ $link['id'] }}">
                             <div>
                                 <input type="hidden" name="ranking[]" value="{{ $link['id'] }}">
