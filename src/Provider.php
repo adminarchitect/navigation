@@ -1,6 +1,6 @@
 <?php
 
-namespace Terranet\Navigation\Providers;
+namespace Terranet\Navigation;
 
 use Illuminate\Support\Collection;
 use IteratorAggregate;

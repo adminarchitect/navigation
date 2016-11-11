@@ -43,6 +43,7 @@ class ServiceProvider extends BaseServiceProvider
                 "{$baseDir}/publishes/Modules" => app_path(app('scaffold.config')->get('paths.module')),
                 "{$baseDir}/publishes/Savers" => app_path(app('scaffold.config')->get('paths.saver')),
                 "{$baseDir}/publishes/Templates" => app_path(app('scaffold.config')->get('paths.template')),
+                "{$baseDir}/publishes/Providers" => app_path(config('navigation.paths.provider')),
             ],
             'boilerplate'
         );

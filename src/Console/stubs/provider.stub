@@ -3,7 +3,7 @@
 namespace App\Http\Terranet\Administrator\Navigation\Providers;
 
 use Illuminate\Support\Collection;
-use Terranet\Navigation\Providers\Provider;
+use Terranet\Navigation\Provider;
 use Terranet\Navigation\Wrappers\Eloquent;
 
 class DummyClass extends Provider
