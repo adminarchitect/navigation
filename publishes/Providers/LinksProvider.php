@@ -1,8 +1,9 @@
 <?php
 
-namespace Terranet\Navigation\Providers;
+namespace App\Http\Terranet\Administrator\Navigation\Providers;
 
 use Illuminate\Support\Collection;
+use Terranet\Navigation\Provider;
 
 class LinksProvider extends Provider
 {

@@ -2,9 +2,10 @@
 
 return [
     'providers' => [
-        Terranet\Navigation\Providers\PagesProvider::class,
-        Terranet\Navigation\Providers\RoutesProvider::class,
-        Terranet\Navigation\Providers\LinksProvider::class
+        \App\Http\Terranet\Administrator\Navigation\Providers\PagesProvider::class,
+        \App\Http\Terranet\Administrator\Navigation\Providers\RoutesProvider::class,
+        \App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider::class,
+        \App\Http\Terranet\Administrator\Navigation\Providers\PartnersProvider::class,
     ],
 
     'paths' => [

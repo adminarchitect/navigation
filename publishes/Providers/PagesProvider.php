@@ -1,9 +1,10 @@
 <?php
 
-namespace Terranet\Navigation\Providers;
+namespace App\Http\Terranet\Administrator\Navigation\Providers;
 
 use App\Page;
 use Illuminate\Support\Collection;
+use Terranet\Navigation\Provider;
 use Terranet\Navigation\Wrappers\Eloquent;
 use Terranet\Translatable\Translatable;
 
