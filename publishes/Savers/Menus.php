@@ -2,8 +2,8 @@
 
 namespace App\Http\Terranet\Administrator\Savers;
 
+use App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider;
 use Terranet\Administrator\Services\Saver;
-use Terranet\Navigation\Providers\LinksProvider;
 use Terranet\Navigation\Wrappers\Link;
 
 class Menus extends Saver
