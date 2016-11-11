@@ -1,0 +1,28 @@
+{
+    "name": "adminarchitect/navigation",
+    "description": "Admin Architect - Navigation Module. Package provides easy way to build and store from/in database",
+    "keywords": [
+        "laravel",
+        "navigation",
+        "menu builder",
+        "admin architect",
+        "laravel admin",
+        "laravel backend panel",
+        "laravel administration framework"
+    ],
+    "authors": [
+        {
+            "name": "endi",
+            "email": "endi1982@gmail.com"
+        }
+    ],
+    "require": {
+        "terranet/administrator": "^3.1",
+        "cviebrock/eloquent-sluggable": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Terranet\\Navigation\\": "src/"
+        }
+    }
+}
