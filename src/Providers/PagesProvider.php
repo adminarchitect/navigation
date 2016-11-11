@@ -5,6 +5,7 @@ namespace Terranet\Navigation\Providers;
 use App\Page;
 use Illuminate\Support\Collection;
 use Terranet\Navigation\Wrappers\Eloquent;
+use Terranet\Translatable\Translatable;
 
 class PagesProvider extends Provider
 {
@@ -26,10 +27,23 @@ class PagesProvider extends Provider
      */
     protected function navigable()
     {
-        return Page::translated()
+        return $this->repository()
             ->get()
             ->map(function ($item) {
                 return new Eloquent($item);
             }, []);
+    }
+
+    /**
+     * Retrieve page repository.
+     *
+     * @return mixed
+     */
+    protected function repository()
+    {
+        $repo = new Page;
+        return $repo instanceof Translatable
+            ? $repo->translated()->orderBy('tt.title')
+            : $repo->orderBy('title');
     }
 }
