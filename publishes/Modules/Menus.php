@@ -35,7 +35,12 @@ class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Valid
 
     public function title()
     {
-        return 'Menus';
+        return 'Navigation';
+    }
+
+    public function navigableIn()
+    {
+        return static::MENU_TOOLS;
     }
 
     public function columns()
