@@ -10,8 +10,8 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
-        if (! defined('_TERRANET_NAVY_')) {
-            define('_TERRANET_NAVY_', 1);
+        if (! defined('_TERRANET_NAVIGATION_')) {
+            define('_TERRANET_NAVIGATION_', 1);
         }
 
         $baseDir = realpath(__DIR__ . '/..');
