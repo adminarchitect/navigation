@@ -72,7 +72,7 @@ class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Valid
             $item->items->each(function ($menuItem) use (&$out) {
                 $link = $menuItem->assemble();
 
-                $out[] = link_to($link->uri(), $link->title());
+                $out[] = link_to($link->url(), $link->title());
 
                 return $out;
             });
