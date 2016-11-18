@@ -14,8 +14,8 @@ composer require adminarchitect/navigation
 
 Add following lines to your config/app.php
 
-1, add `Terranet\Navigation\ServiceProvider::class` line to `providers` array
-2. add `'Navigation' => Terranet\Navigation\Facade::class,` line to `aliases` array
+* add `Terranet\Navigation\ServiceProvider::class` line to `providers` array
+* add `'Navigation' => Terranet\Navigation\Facade::class,` line to `aliases` array
 
 Run:
 ```
@@ -26,29 +26,29 @@ php artisan migrate
 
 # Providers
 
-Navigation is based on Providers, each of them can provide a colletion of navigable items and should realize one of provided contracts or define new one.
+Navigation is based on Providers, each of them can provide a collection of navigable items and should realize one of default contracts or maybe define new one.
 
 * `LinksProvider`: Provides a way to add static links: url => title;
 * `RoutesProvider`: Provides a way to add routes to menu;
-* `EloquentProvider`: Provides a way to add any Eloquent model to navigation collection.
+* `EloquentProvider`: Provides a way to add Eloquent models to a navigable collection.
 
 All usable providers are registered via config/navigation.php file -> `providers` array.
 
 To create a new provider, run: `php artisan navigation <Name>`, then register it in config/navigation.php.
 
 Any provider which extends EloquentProvider should provide a collection of items which implement NavigationItem contract.
-NavigationItem contract requires 3 methods to be defined:
-1. navigationKey => should return item unique key, usually 'id';
-2. navigationTitle => shluld return item title, may be: 'title', 'name', whatever identifies a model title.
-3. navigationUrl => should return item specific url, may return url('') or route('')
+NavigationItem requires implementation of 3 simple methods:
+1. navigationKey => should return item unique key, usually `id`;
+2. navigationTitle => should return item title, may be: `title`, `name`, whatever identifies a model title.
+3. navigationUrl => should return item specific url, may return `url(<url>)` or `route(<name>, <params>)`
 
-for instance, to allow adding Posts to a navigation you have to register a PostsProvider and modify your Post model to look like in following example:
+for instance, to allow adding `Posts` to a navigation you have to create a `PostsProvider`, then modify your `Post` model to look like in the following example:
 
 ```
 php artisan navigation:provider PostsProvider
 ```
 
-will generate app\Http\Terranet\Administrator\Navigation\Providers\PostsProvider:
+`Provider` command will generate `app\Http\Terranet\Administrator\Navigation\Providers\PostsProvider` class:
 
 ```
 <?php
@@ -66,15 +66,14 @@ class PostsProvider extends EloquentProvider
 }
 ```
 
-now you only have to provide a valid eloquent $model:
+Now you only have to provide a valid eloquent $model, for instance `App\Post`:
 
 ```
 protected $model = \App\Post::class;
 ```
 
-and register it in config/navigation.php
+Next, register it in `config/navigation.php`
 
-`config\navigation.php`:
 ```
 'providers' => [
     ...
@@ -83,7 +82,7 @@ and register it in config/navigation.php
 ]
 ```
 
-your `app\Post.php` should be like:
+Navigable Eloquent model should implement NavigationItem contract, so `App\Post` should be like:
 
 ```
 class Post extends Model implements NavigationItem
