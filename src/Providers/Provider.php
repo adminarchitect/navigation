@@ -26,7 +26,13 @@ abstract class Provider implements IteratorAggregate
      *
      * @return mixed
      */
-    abstract public function name();
+    public function name()
+    {
+        $name = str_replace('Provider', '', class_basename($this));
+        $key = "navigation::providers." . $name;
+
+        return app('translator')->has($key) ? trans($key) : $name;
+    }
 
     /**
      * Provides a collection of Navigable elements.
@@ -34,6 +40,14 @@ abstract class Provider implements IteratorAggregate
      * @return Collection
      */
     abstract protected function navigable();
+
+    /**
+     * Convert stored item to a URLContainer.
+     *
+     * @param $navigable
+     * @return URLContainer
+     */
+    abstract public function assemble($navigable);
 
     /**
      * Finds a collection element by id().
