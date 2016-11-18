@@ -55,7 +55,19 @@ class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Valid
     }
 
     /**
-     * Scaffoldable Columns.
+     * Attributes assigned to <a> element.
+     *
+     * @return mixed
+     */
+    public function linkAttributes()
+    {
+        return [
+            'icon' => 'fa fa-bars',
+        ];
+    }
+
+    /**
+     * Navigation Columns.
      *
      * @return Mutable
      */
@@ -77,23 +89,24 @@ class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Valid
     }
 
     /**
-     * Provides a collection of links.
+     * Provides a collection of navigable items.
      *
      * @return Element
      */
-    protected function links()
+    private function links()
     {
         $links = new Element('links');
 
         $links->setTemplate(function ($item) {
             $out = [];
-            $item->items->each(function ($menuItem) use (&$out) {
-                $link = $menuItem->assemble();
+            $item->items()->limit(5)->get()
+                ->each(function ($menuItem) use (&$out) {
+                    $link = $menuItem->assemble();
 
-                $out[] = link_to($link->url(), $link->title());
+                    $out[] = link_to($link->url(), $link->title());
 
-                return $out;
-            });
+                    return $out;
+                });
 
             return implode(' <span class="text-muted">&raquo;</span> ', $out);
         });
