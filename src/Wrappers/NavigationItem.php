@@ -1,6 +1,6 @@
 <?php
 
-namespace Terranet\Navigation\Wrappers;
+namespace Terranet\Navigation;
 
 interface NavigationItem
 {
