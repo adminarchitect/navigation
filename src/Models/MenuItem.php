@@ -30,37 +30,9 @@ class MenuItem extends Model
      */
     public function refresh()
     {
-        $provider = app()->make($this->navigable['provider']);
-
-        if ($provider instanceof RoutesProvider) {
-            return array_merge($this->toArray(), [
-                'provider' => $provider->name(),
-                'object' => new Route($this->navigable['id'], $this->navigable['params']),
-            ]);
-        }
-
-        if ($provider instanceof LinksProvider) {
-            return array_merge($this->toArray(), [
-                'provider' => $provider->name(),
-                'object' => new Link($this->navigable['url'], $this->navigable['title']),
-            ]);
-        }
-
-        if ($type = array_get($this->navigable, 'type')) {
-            $type = app()->make($type);
-            $key = array_get($this->navigable, 'id');
-
-            if ($type instanceof NavigationItem) {
-                return array_merge($this->toArray(), [
-                    'provider' => $provider->name(),
-                    'object' => new Eloquent(
-                        $provider->find($key)->getObject()
-                    ),
-                ]);
-            }
-        }
-
-        return null;
+        return app()
+            ->make($this->navigable['provider'])
+            ->refresh($this);
     }
 
     /**

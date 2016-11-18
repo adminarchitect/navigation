@@ -2,6 +2,7 @@
 
 namespace Terranet\Navigation\Providers;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Terranet\Navigation\URLContainer;
 use Terranet\Navigation\Wrappers\Eloquent;
@@ -26,6 +27,24 @@ abstract class EloquentProvider extends Provider
             ->map(function ($item) {
                 return new Eloquent($item);
             }, []);
+    }
+
+    /**
+     * Restore item from database and prepare for editing.
+     *
+     * @param Arrayable $model
+     * @return mixed
+     */
+    public function refresh(Arrayable $model)
+    {
+        $key = array_get($model->navigable, 'id');
+
+        return array_merge($model->toArray(), [
+            'provider' => $this->name(),
+            'object' => new Eloquent(
+                $this->find($key)->getObject()
+            ),
+        ]);
     }
 
     /**

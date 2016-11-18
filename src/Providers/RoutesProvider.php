@@ -2,12 +2,27 @@
 
 namespace Terranet\Navigation\Providers;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Terranet\Navigation\URLContainer;
 use Terranet\Navigation\Wrappers\Route;
 
 class RoutesProvider extends Provider
 {
+    /**
+     * Restore item from database and prepare for editing.
+     *
+     * @param Arrayable $model
+     * @return array|null
+     */
+    public function refresh(Arrayable $model)
+    {
+        return array_merge($model->toArray(), [
+            'provider' => $this->name(),
+            'object' => new Route($model->navigable['id'], $model->navigable['params']),
+        ]);
+    }
+
     /**
      * Convert stored item to a URLContainer.
      *

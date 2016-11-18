@@ -2,6 +2,7 @@
 
 namespace Terranet\Navigation\Providers;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use IteratorAggregate;
 use Terranet\Navigation\URLContainer;
@@ -49,6 +50,14 @@ abstract class Provider implements IteratorAggregate
      * @return URLContainer
      */
     abstract public function assemble($navigable);
+
+    /**
+     * Restore item from database and prepare for editing.
+     *
+     * @param Arrayable $model
+     * @return mixed
+     */
+    abstract public function refresh(Arrayable $model);
 
     /**
      * Finds a collection element by id().
