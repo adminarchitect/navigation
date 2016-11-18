@@ -20,6 +20,7 @@ class Menu extends Model implements \IteratorAggregate
 
     public function getIterator()
     {
+//        dd($this->items->toArray());
         return $this->items->map(function (MenuItem $item) {
             return $item->refresh();
         });

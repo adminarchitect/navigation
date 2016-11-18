@@ -3,22 +3,25 @@
 namespace Terranet\Navigation\Providers;
 
 use Illuminate\Support\Collection;
-use Terranet\Navigation\Provider;
+use Terranet\Navigation\URLContainer;
 use Terranet\Navigation\Wrappers\Route;
 
 class RoutesProvider extends Provider
 {
     /**
-     * Provider name.
+     * Convert stored item to a URLContainer.
      *
-     * @return mixed
+     * @param $navigable
+     * @return URLContainer
      */
-    public function name()
+    public function assemble($navigable)
     {
-        $name = str_replace('Provider', '', class_basename($this));
-        $key = "navigation::providers." . $name;
+        $builder = new Route($navigable['id'], $navigable['params']);
 
-        return app('translator')->has($key) ? trans($key) : $name;
+        return new URLContainer(
+            $builder->assemble(),
+            trans('navigation.' . $navigable['id'] . '.title')
+        );
     }
 
     /**

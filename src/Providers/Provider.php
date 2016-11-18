@@ -1,9 +1,10 @@
 <?php
 
-namespace Terranet\Navigation;
+namespace Terranet\Navigation\Providers;
 
 use Illuminate\Support\Collection;
 use IteratorAggregate;
+use Terranet\Navigation\URLContainer;
 
 abstract class Provider implements IteratorAggregate
 {

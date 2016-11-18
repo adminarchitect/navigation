@@ -70,41 +70,8 @@ class MenuItem extends Model
      */
     public function assemble()
     {
-        $provider = app()->make($this->navigable['provider']);
-
-        if ($provider instanceof RoutesProvider) {
-            $builder = new Route($this->navigable['id'], $this->navigable['params']);
-
-            return new URLContainer(
-                $builder->assemble(),
-                trans('navigation.' . $this->navigable['id'] . '.title')
-            );
-        }
-
-        if ($provider instanceof LinksProvider) {
-            $builder = new Link($this->navigable['url'], $this->navigable['title']);
-
-            return new URLContainer(
-                $builder->assemble(),
-                $this->navigable['title']
-            );
-        }
-
-        if ($type = array_get($this->navigable, 'type')) {
-            $type = app()->make($type);
-
-            if ($type instanceof NavigationItem) {
-                $builder = $provider->find(
-                    array_get($this->navigable, 'id')
-                );
-
-                return new URLContainer(
-                    $builder->assemble(),
-                    $builder->title()
-                );
-            }
-        }
-
-        return null;
+        return app()
+            ->make($this->navigable['provider'])
+            ->assemble($this->navigable);
     }
 }
