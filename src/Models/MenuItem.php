@@ -2,14 +2,8 @@
 
 namespace Terranet\Navigation\Models;
 
-use App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider;
-use App\Http\Terranet\Administrator\Navigation\Providers\RoutesProvider;
 use Illuminate\Database\Eloquent\Model;
 use Terranet\Navigation\URLContainer;
-use Terranet\Navigation\Wrappers\Eloquent;
-use Terranet\Navigation\Wrappers\Link;
-use Terranet\Navigation\Wrappers\NavigationItem;
-use Terranet\Navigation\Wrappers\Route;
 
 class MenuItem extends Model
 {
