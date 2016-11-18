@@ -9,7 +9,7 @@ use Terranet\Navigation\Wrappers\Eloquent;
 class DummyClass extends Provider
 {
     /**
-     * Provider name.
+     * Provider public name.
      *
      * @return mixed
      */
@@ -28,11 +28,10 @@ class DummyClass extends Provider
      */
     protected function navigable()
     {
-        # Provide items
+        # Provide navigable items.
         return collect([])
             ->map(function ($item) {
-                # Wrap item using one of provided wripers
-                # or create new one.
+                # Wrap each item using one of provided wrappers.
                 return new Eloquent($item);
             }, []);
     }
