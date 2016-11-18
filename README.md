@@ -4,7 +4,7 @@ Navigation is a Laravel based (AdminArchitect oriented) package to handle dynami
 LinksProvider, RoutesProvider, EloquentProvider are provided out of the box.
 
 # Caution
-Note, that `adminarchitect/navigation` is based on (AdminArchitect)['http://adminarchitect.com'] package and won't work without it.
+Note, that `adminarchitect/navigation` is based on [AdminArchitect](http://adminarchitect.com) package and won't work without it.
 
 # Installation
 
