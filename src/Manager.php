@@ -17,7 +17,9 @@ class Manager
     {
         return Menu::whereName($id)
             ->first()
-            ->items
+            ->items()
+            ->orderBy('rank', 'asc')
+            ->get()
             ->map(function ($item) {
                 return $item->assemble();
             });

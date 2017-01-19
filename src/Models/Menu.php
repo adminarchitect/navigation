@@ -16,13 +16,12 @@ class Menu extends Model implements \IteratorAggregate
 
     public function items()
     {
-        return $this->hasMany(MenuItem::class)
-                    ->orderBy('rank', 'asc');
+        return $this->hasMany(MenuItem::class);
     }
 
     public function rootItems()
     {
-        return $this->items()->whereNull(MenuItem::PARENT_KEY);
+        return $this->items()->orderBy('rank', 'asc')->whereNull(MenuItem::PARENT_KEY);
     }
 
     public function getIterator()

@@ -3,7 +3,6 @@
 namespace Terranet\Navigation;
 
 use App\Http\Terranet\Administrator\Navigation\Providers\LinksProvider;
-use Illuminate\Support\Collection;
 use Terranet\Administrator\Services\Saver as AdministratorService;
 use Terranet\Navigation\Wrappers\Link;
 
@@ -50,10 +49,10 @@ class Saver extends AdministratorService
      *
      * @param $collection
      */
-    protected function dropRemovedItems(Collection $collection)
+    protected function dropRemovedItems(array $collection = [])
     {
         $this->repository->items()
-                         ->whereNotIn('id', $collection->flatten())
+                         ->whereNotIn('menu_items.id', collect($collection)->flatten())
                          ->delete();
     }
 
@@ -85,22 +84,38 @@ class Saver extends AdministratorService
 
     protected function saveNavigation()
     {
-        foreach ($providers = $this->request->get('navigable', []) as $provider => $links) {
+        foreach ($providers = $this->request->get('navigable', []) as $provider => $collection) {
             $provider = $this->getProvider($provider);
 
-            $rank = $this->repository->items->max('rank') + 1;
-            foreach ($links as $key => $value) {
-                if (LinksProvider::class == get_class($provider)) {
-                    $this->createItem(new Link($key, $value), $provider, $rank++);
-                } else {
-                    $this->createItem($provider->find($value), $provider, $rank++);
-                }
+            $position = $this->repository->items->max('rank') + 1;
+
+            foreach ($collection as $index => $value) {
+                $item = LinksProvider::class == get_class($provider)
+                    ? $this->createItem(new Link($index, $value), $provider, $position++)
+                    : $this->createItem($provider->find($value), $provider, $position++);
+
+                $this->setItemRank($this->ranking, $item->getKey(), $value);
+            }
+        }
+    }
+
+    protected function setItemRank(&$collection = null, $assignedKey, $value)
+    {
+        foreach ($collection as &$group) {
+            if ($group['id'] === $value) {
+                $group['id'] = $assignedKey;
+
+                return;
+            }
+
+            if (array_has($group, 'children')) {
+                $this->setItemRank($group['children'], $assignedKey, $value);
             }
         }
     }
 
     protected function parseRanking()
     {
-        return collect(json_decode($this->request->get('ranking', '{}'), true));
+        return json_decode($this->request->get('ranking', '{}'), true);
     }
 }

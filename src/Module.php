@@ -75,18 +75,18 @@ class Module extends Scaffolding implements Navigable, Filtrable, Editable, Vali
     public function columns()
     {
         return $this->scaffoldColumns()
-            ->push($this->links())
-            ->updateMany(
-                [
-                    'name' => function ($name) {
-                        return $name->setStandalone(true);
-                    },
-                    'links' => function ($links) {
-                        return $links->setStandalone(true);
-                    },
-                ]
-            )
-            ->join(['name', 'links'], 'menu');
+                    ->push($this->links())
+                    ->updateMany(
+                        [
+                            'name' => function ($name) {
+                                return $name->setStandalone(true);
+                            },
+                            'links' => function ($links) {
+                                return $links->setStandalone(true);
+                            },
+                        ]
+                    )
+                    ->join(['name', 'links'], 'menu');
     }
 
     public function form()
@@ -107,14 +107,14 @@ class Module extends Scaffolding implements Navigable, Filtrable, Editable, Vali
 
         $links->setTemplate(function ($item) {
             $out = [];
-            $item->items()->limit(5)->get()
-                ->each(function ($menuItem) use (&$out) {
-                    $link = $menuItem->assemble();
+            $item->items()->orderBy('rank', 'asc')->limit(5)->get()
+                 ->each(function ($menuItem) use (&$out) {
+                     $link = $menuItem->assemble();
 
-                    $out[] = link_to($link->url(), $link->title());
+                     $out[] = link_to($link->url(), $link->title());
 
-                    return $out;
-                });
+                     return $out;
+                 });
 
             return implode(' <span class="text-muted">&raquo;</span> ', $out);
         });
