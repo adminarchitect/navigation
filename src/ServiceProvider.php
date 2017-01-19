@@ -47,6 +47,7 @@ class ServiceProvider extends BaseServiceProvider
             ],
             'boilerplate'
         );
+        $this->publishes(["{$baseDir}/publishes/public" => public_path('navigation')], 'public');
     }
 
     public function register()

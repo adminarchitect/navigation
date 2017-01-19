@@ -76,34 +76,18 @@
                     </div><!-- /.box-body -->
                 </div>
             </div>
-            <div class="col-xs-8" id="sortable-container">
+            <div class="col-xs-8">
                 {!! Form::model(isset($item) ? $item : null, ['method' => 'post', 'files' => true]) !!}
                 @include('navigation::edit.menu_form')
 
-                <li data-template="navigable" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display:none;" class="ui-state-default">
-                    <div>
-                        <a href="#" class="remove-navigable pull-right" style="margin-left: 10px;">&times;</a>
-                        <span class="text-muted pull-right" data-template="provider"></span>
-                        <strong class="pull-left" data-template="title"></strong>
-                        <span data-template="input"></span>
-                        <span data-template="ranking"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
+                <p class="text-primary">
+                    <i class="fa fa-info-circle"></i>&nbsp;
+                    {{ trans('navigation::general.hierarchy') }}
+                </p>
 
-                <ol id="navigation-items" class="sortable" style="padding: 10px;">
-                    @foreach($item as $link)
-                        <li style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;" class="ui-state-default" data-id="{{ $link['id'] }}">
-                            <div>
-                                <input type="hidden" name="ranking[]" value="{{ $link['id'] }}">
-                                <a href="#" class="remove-navigable pull-right" style="margin-left: 10px;">&times;</a>
-                                <span class="text-muted pull-right" data-template="provider">{{ $link['provider'] }}</span>
-                                <strong class="pull-left" data-template="title">{{ $link['object']->title() }}</strong>
-                            </div>
-                            <div class="clearfix"></div>
-                        </li>
-                    @endforeach
-                </ol>
+                <div id="navigation-items" class="dd">
+                    {!! nestable_menu($item) !!}
+                </div>
 
                 {!! Form::close() !!}
 
@@ -120,59 +104,38 @@
 @include($template->edit('scripts'))
 
 @section('scaffold.css')
-    <style>
-        ol.sortable,
-        ol.sortable ol {
-            list-style: none;
-        }
-
-        .ui-state-highlight {
-            height: 3em;
-            line-height: 1.2em;
-            margin-bottom: 10px;
-            background: #DDD;
-            border: #919191;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset($file = 'navigation/css/jquery.nestable.css') . '?' . filemtime(public_path($file)) }}">
 @append
 
 @section('scaffold.js')
+    <script src="{{ asset($file = 'navigation/js/jquery.nestable.js') . '?' . filemtime(public_path($file)) }}"></script>
     <script>
         $(function () {
-            $("#navigation-items").sortable({
-                placeholder: 'ui-state-highlight',
-                // fix bug with wrong draggable position
-                helper: function (event, ui) {
-                    var $clone = $(ui).clone();
-                    $clone.css('position', 'absolute');
+            var $nestable = $("#navigation-items").nestable();
+            $nestable.on('change', function () {
+                $('#ranking').val(JSON.stringify($nestable.nestable('serialize')));
+            }).trigger('change');
 
-                    return $clone.get(0);
-                }
-            });
+            $(document).on('click', '.remove-navigable', function (event) {
+                event.preventDefault();
 
-            $(document).on('click', '.remove-navigable', function () {
                 if (window.confirm('{{ trans('navigation::general.remove_confirmation') }}')) {
-                    $(this).closest('.ui-state-default').remove();
+                    $(this).closest('.dd-item').remove();
+                    $nestable.trigger('change');
                 }
 
                 return false;
             });
 
             function buildNavigable(provider, label, name, value) {
-                var navigable = document.querySelector('[data-template="navigable"]').cloneNode(true);
-                navigable.querySelector('[data-template="provider"]').textContent = provider;
-                navigable.querySelector('[data-template="title"]').textContent = label;
-                $(navigable.querySelector('[data-template="input"]'))
-                    .replaceWith(
-                        '<input type="hidden" name="' + name + '" value="' + value + '" />'
-                    );
+                var navigable = document.querySelector('#navigable-template').innerHTML;
+                navigable = navigable
+                    .replace('{identifier}', value)
+                    .replace('{provider}', provider)
+                    .replace('{title}', label)
+                    .replace('{input}', '<input type="hidden" name="' + name + '" value="' + value + '" />');
 
-                $(navigable.querySelector('[data-template="ranking"]'))
-                    .replaceWith(
-                        '<input type="hidden" name="ranking[]" value="' + name.replace('navigable[', '').replace('][]', '::' + value) + '" />'
-                    );
-
-                $(navigable).show().appendTo('#navigation-items');
+                $(navigable).appendTo($('#navigation-items > .dd-list'));
             }
 
             $('.push-navi-items').click(function () {
@@ -187,6 +150,8 @@
                     buildNavigable(provider.text(), label.text(), element.name, element.value);
 
                     $(element).prop('checked', false);
+
+                    $nestable.trigger('change');
                 });
 
                 return false;
@@ -201,5 +166,18 @@
                 buildNavigable(provider.text(), title, "navigable[Links][" + url + "]", title);
             });
         });
+    </script>
+
+    <script type="text/html" id="navigable-template">
+        <li class="dd-item dd3-item" data-id="{identifier}">
+            <div class="dd-handle dd3-handle">&nbsp;</div>
+            <div class="dd3-content">
+                <a href="#" class="remove-navigable pull-right" style="margin-left: 10px;">&times;</a>
+                <span class="text-muted pull-right">{provider}</span>
+                <strong class="pull-left">{title}</strong>
+                <span>{input}</span>
+                <div class="clearfix"></div>
+            </div>
+        </li>
     </script>
 @append
