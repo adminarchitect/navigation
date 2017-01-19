@@ -35,7 +35,7 @@ class LinksProvider extends Provider
 
         return new URLContainer(
             $builder->assemble(),
-            $navigable['title']
+            $this->titleCase($navigable['title'])
         );
     }
 

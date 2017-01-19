@@ -35,7 +35,7 @@ class RoutesProvider extends Provider
 
         return new URLContainer(
             $builder->assemble(),
-            trans('navigation.' . $navigable['id'] . '.title')
+            $this->translate($navigable['id'])
         );
     }
 
@@ -47,9 +47,9 @@ class RoutesProvider extends Provider
         $routes = app('router')->getRoutes()->getRoutesByMethod()["GET"];
 
         return $this->collectRoutes($routes)
-            ->map(function ($item) {
-                return new Route($item->getAction()['as'], []);
-            });
+                    ->map(function ($item) {
+                        return new Route($item->getAction()['as'], []);
+                    });
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Terranet\Navigation\Providers;
 
+use Coduo\PHPHumanizer\StringHumanizer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use IteratorAggregate;
@@ -81,5 +82,19 @@ abstract class Provider implements IteratorAggregate
     public function getIterator()
     {
         return collect($this->navigable());
+    }
+
+    protected function translate($id)
+    {
+        return app('translator')->has($key = 'navigation.' . $id . '.title')
+            ? trans($key)
+            : $this->titleCase($id);
+    }
+
+    protected function titleCase($title)
+    {
+        $title = implode(" ", explode('.', $title));
+
+        return StringHumanizer::humanize($title);
     }
 }

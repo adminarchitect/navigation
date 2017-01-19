@@ -23,10 +23,10 @@ abstract class EloquentProvider extends Provider
     protected function navigable()
     {
         return $this->repository()
-            ->get()
-            ->map(function ($item) {
-                return new Eloquent($item);
-            }, []);
+                    ->get()
+                    ->map(function ($item) {
+                        return new Eloquent($item);
+                    }, []);
     }
 
     /**
@@ -67,12 +67,13 @@ abstract class EloquentProvider extends Provider
 
     /**
      * Retrieve page repository.
+     *
      * @return mixed
      * @throws Exception
      */
     protected function repository()
     {
-        if (! $this->model) {
+        if (!$this->model) {
             throw new Exception(class_basename($this) . ": mandatory property \$model missing.");
         }
 
