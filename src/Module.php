@@ -1,6 +1,6 @@
 <?php
 
-namespace Terranet\Navigation\Modules;
+namespace Terranet\Navigation;
 
 use Terranet\Administrator\Collection\Mutable;
 use Terranet\Administrator\Columns\Element;
@@ -10,6 +10,7 @@ use Terranet\Administrator\Contracts\Module\Filtrable;
 use Terranet\Administrator\Contracts\Module\Navigable;
 use Terranet\Administrator\Contracts\Module\Sortable;
 use Terranet\Administrator\Contracts\Module\Validable;
+use Terranet\Administrator\Form\FormElement;
 use Terranet\Administrator\Scaffolding;
 use Terranet\Administrator\Traits\Module\AllowFormats;
 use Terranet\Administrator\Traits\Module\AllowsNavigation;
@@ -23,7 +24,7 @@ use Terranet\Administrator\Traits\Module\ValidatesForm;
  *
  * @package Terranet\Administrator
  */
-class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Validable, Sortable, Exportable
+class Module extends Scaffolding implements Navigable, Filtrable, Editable, Validable, Sortable, Exportable
 {
     use HasFilters, HasForm, HasSortable, ValidatesForm, AllowFormats, AllowsNavigation;
 
@@ -86,6 +87,13 @@ class Menus extends Scaffolding implements Navigable, Filtrable, Editable, Valid
                 ]
             )
             ->join(['name', 'links'], 'menu');
+    }
+
+    public function form()
+    {
+        return $this->scaffoldForm()->create(
+            FormElement::hidden('ranking')
+        );
     }
 
     /**

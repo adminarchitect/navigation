@@ -2,14 +2,14 @@
 
 namespace App\Http\Terranet\Administrator\Modules;
 
-use Terranet\Navigation\Modules\Menus as CoreMenus;
+use Terranet\Navigation\Module as NavigationModule;
 
 /**
  * Administrator Resource Navigation
  *
  * @package Terranet\Administrator
  */
-class Menus extends CoreMenus
+class Menus extends NavigationModule
 {
     //
 }

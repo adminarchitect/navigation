@@ -2,35 +2,51 @@
 
 namespace Terranet\Navigation\Models;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\MenuItem;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model implements \IteratorAggregate
 {
+    use Sluggable;
+
     public $timestamps = false;
 
     protected $fillable = ['name'];
 
-    /**
-     * Navigable items relationship.
-     *
-     * @return HasMany
-     */
     public function items()
     {
-        return $this->hasMany(MenuItem::class)->orderBy('rank', 'ASC');
+        return $this->hasMany(MenuItem::class)
+                    ->orderBy('rank', 'asc');
+    }
+
+    public function rootItems()
+    {
+        return $this->items()->whereNull(MenuItem::PARENT_KEY);
+    }
+
+    public function getIterator()
+    {
+        return $this->rootItems->map(function (MenuItem $item) {
+            return $item->refresh();
+        });
     }
 
     /**
-     * Get collection iterator.
+     * Return the sluggable configuration array for this model.
      *
-     * @return Collection
+     * @return array
      */
-    public function getIterator()
+    public function sluggable()
     {
-        return $this->items->map(function (MenuItem $item) {
-            return $item->refresh();
-        });
+        return [
+            'name' => [
+                'source' => 'name',
+                'onUpdate' => true,
+                'method' => function ($string) {
+                    return str_replace(' ', '', title_case($string));
+                }
+            ],
+        ];
     }
 }

@@ -2,23 +2,9 @@
 
 namespace App\Http\Terranet\Administrator\Templates;
 
-use Terranet\Administrator\Contracts\Services\TemplateProvider;
-use Terranet\Administrator\Services\Template;
+use Terranet\Navigation\Template as CoreTemplate;
 
-class Menus extends Template implements TemplateProvider
+class Menus extends CoreTemplate
 {
-    /**
-     * Scaffold edit templates
-     *
-     * @param $partial
-     * @return mixed array|string
-     */
-    public function edit($partial = 'index')
-    {
-        $partials = array_merge(parent::edit(null), [
-            'index' => 'navigation::edit.index'
-        ]);
-
-        return (null === $partial ? $partials : $partials[$partial]);
-    }
+    //
 }
