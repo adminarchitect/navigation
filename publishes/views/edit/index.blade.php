@@ -109,70 +109,13 @@
 
 @section('scaffold.js')
     <script src="{{ asset($file = 'navigation/js/jquery.nestable.js') . '?' . filemtime(public_path($file)) }}"></script>
-    <script>
-        $(function () {
-            var $nestable = $("#navigation-items").nestable();
-            $nestable.on('change', function () {
-                $('#ranking').val(JSON.stringify($nestable.nestable('serialize')));
-            }).trigger('change');
-
-            $(document).on('click', '.remove-navigable', function (event) {
-                event.preventDefault();
-
-                if (window.confirm('{{ trans('navigation::general.remove_confirmation') }}')) {
-                    $(this).closest('.dd-item').remove();
-                    $nestable.trigger('change');
-                }
-
-                return false;
-            });
-
-            function buildNavigable(provider, label, name, value) {
-                var navigable = document.querySelector('#navigable-template').innerHTML;
-                navigable = navigable
-                    .replace('{identifier}', value)
-                    .replace('{provider}', provider)
-                    .replace('{title}', label)
-                    .replace('{input}', '<input type="hidden" name="' + name + '" value="' + value + '" />');
-
-                $(navigable).appendTo($('#navigation-items > .dd-list'));
-            }
-
-            $('.push-navi-items').click(function () {
-                var checked = $(this).prev('.provider-links').find('ul>li>label>input:checked');
-
-                $.each(checked, function (i, element) {
-                    // Create element from Template
-
-                    var label = $(element).closest('label');
-                    var provider = $(element).closest('.panel').find('.box-title a');
-
-                    buildNavigable(provider.text(), label.text(), element.name, element.value);
-
-                    $(element).prop('checked', false);
-
-                    $nestable.trigger('change');
-                });
-
-                return false;
-            });
-
-            $('.push-link').click(function () {
-                var provider = $(this).closest('.panel').find('.box-title a');
-
-                var title = $('[data-name="title"]').val();
-                var url = $('[data-name="url"]').val();
-
-                buildNavigable(provider.text(), title, "navigable[Links][" + url + "]", title);
-            });
-        });
-    </script>
+    <script src="{{ asset($file = 'navigation/js/navigation.js') . '?' . filemtime(public_path($file)) }}"></script>
 
     <script type="text/html" id="navigable-template">
         <li class="dd-item dd3-item" data-id="{identifier}">
             <div class="dd-handle dd3-handle">&nbsp;</div>
             <div class="dd3-content">
-                <a href="#" class="remove-navigable pull-right" style="margin-left: 10px;">&times;</a>
+                <a href="#" class="remove-navigable pull-right" style="margin-left: 10px;" data-confirmation="{{ trans('navigation::general.remove_confirmation') }}">&times;</a>
                 <span class="text-muted pull-right">{provider}</span>
                 <strong class="pull-left">{title}</strong>
                 <span>{input}</span>
