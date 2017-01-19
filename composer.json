@@ -16,10 +16,6 @@
             "email": "endi1982@gmail.com"
         }
     ],
-    "require": {
-        "terranet/administrator": "^3.1",
-        "cviebrock/eloquent-sluggable": "^4.1"
-    },
     "autoload": {
         "psr-4": {
             "Terranet\\Navigation\\": "src/"

@@ -2,38 +2,12 @@
 
 namespace App\Http\Terranet\Administrator\Navigation\Providers;
 
-use Illuminate\Support\Collection;
-use Terranet\Navigation\Provider;
-use Terranet\Navigation\Wrappers\Eloquent;
+use Terranet\Navigation\Providers\EloquentProvider;
 
-class DummyClass extends Provider
+class DummyClass extends EloquentProvider
 {
     /**
-     * Provider name.
-     *
-     * @return mixed
+     * Eloquent model.
      */
-    public function name()
-    {
-        $name = str_replace('Provider', '', class_basename($this));
-        $key = "navigation::providers." . $name;
-
-        return app('translator')->has($key) ? trans($key) : $name;
-    }
-
-    /**
-     * Provides a collection of Navigable elements.
-     *
-     * @return Collection
-     */
-    protected function navigable()
-    {
-        # Provide items
-        return collect([])
-            ->map(function ($item) {
-                # Wrap item using one of provided wripers
-                # or create new one.
-                return new Eloquent($item);
-            }, []);
-    }
+    protected $model;
 }

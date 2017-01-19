@@ -4,22 +4,22 @@ namespace Terranet\Navigation;
 
 class URLContainer
 {
-    protected $uri;
+    protected $url;
 
     protected $title;
 
-    public function __construct($uri, $title)
+    public function __construct($url, $title)
     {
-        $this->uri = $uri;
+        $this->url = $url;
         $this->title = $title;
     }
 
     /**
      * @return mixed
      */
-    public function uri()
+    public function url()
     {
-        return $this->uri;
+        return $this->url;
     }
 
     /**
