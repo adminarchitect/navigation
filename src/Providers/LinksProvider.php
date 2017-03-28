@@ -31,6 +31,8 @@ class LinksProvider extends Provider
      */
     public function assemble($navigable)
     {
+        $navigable = $navigable['navigable'];
+
         $builder = new Link($navigable['url'], $navigable['title']);
 
         return new URLContainer(
