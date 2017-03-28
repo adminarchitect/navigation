@@ -31,9 +31,7 @@ class RoutesProvider extends Provider
      */
     public function assemble($navigable)
     {
-        if (array_has($navigable, 'navigable')) {
-            $navigable = $navigable['navigable'];
-        }
+        $navigable = $navigable['navigable'];
 
         $builder = new Route($navigable['id'], (array) $navigable['params']);
 
