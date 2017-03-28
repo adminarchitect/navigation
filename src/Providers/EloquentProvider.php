@@ -56,7 +56,7 @@ abstract class EloquentProvider extends Provider
     public function assemble($navigable)
     {
         $builder = $this->find(
-            array_get($navigable, 'id')
+            array_get($navigable['navigable'], 'id')
         );
 
         return new URLContainer(
