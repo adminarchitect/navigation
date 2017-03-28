@@ -19,7 +19,7 @@ class RoutesProvider extends Provider
     {
         return array_merge($model->toArray(), [
             'provider' => $this->name(),
-            'object' => new Route($model->navigable['id'], $model->navigable['params']),
+            'object' => new Route($model->navigable['id'], (array) $model->navigable['params']),
         ]);
     }
 
@@ -31,7 +31,11 @@ class RoutesProvider extends Provider
      */
     public function assemble($navigable)
     {
-        $builder = new Route($navigable['id'], $navigable['params']);
+        if (array_has($navigable, 'navigable')) {
+            $navigable = $navigable['navigable'];
+        }
+
+        $builder = new Route($navigable['id'], (array) $navigable['params']);
 
         return new URLContainer(
             $builder->assemble(),
