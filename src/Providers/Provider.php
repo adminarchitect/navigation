@@ -86,7 +86,7 @@ abstract class Provider implements IteratorAggregate
 
     protected function translate($id)
     {
-        return app('translator')->has($key = 'navigation.' . $id . '.title')
+        return app('translator')->has($key = 'navigation::routes.' . $id)
             ? trans($key)
             : $this->titleCase($id);
     }

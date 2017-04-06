@@ -36,16 +36,6 @@ class Module extends Scaffolding implements Navigable, Filtrable, Editable, Vali
     protected $model = '\App\Menu';
 
     /**
-     * Module title.
-     *
-     * @return string
-     */
-    public function title()
-    {
-        return 'Navigation';
-    }
-
-    /**
      * Module navigation.
      *
      * @return string
