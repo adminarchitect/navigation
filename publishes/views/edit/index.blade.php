@@ -44,7 +44,7 @@
 @include($template->edit('scripts'))
 
 @section('scaffold.css')
-    <link rel="stylesheet" href="{{ mix($file = 'admin/navigation/nestable.css') }}">
+    <link rel="stylesheet" href="{{ asset($file = 'admin/navigation/nestable.css') }}">
 @append
 
 @section('scaffold.js')

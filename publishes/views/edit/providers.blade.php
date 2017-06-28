@@ -4,7 +4,7 @@
         $expanded = $loop->index == 0;
         ?>
         @if (class_basename($provider) == 'LinksProvider')
-            <div class="panel">
+            <div class="panel panel-default">
                 <div class="panel-heading" role="tab">
                     <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#links-list" aria-expanded="false" class="collapsed">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         @else
-            <div class="panel">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#{{ $slug = str_slug($name = $provider->name()) }}-list" aria-expanded="{{ $expanded ? 'true' : 'false' }}" class="{{ $expanded ? '' : 'collapsed' }}">{{ $name }}</a>
