@@ -44,12 +44,12 @@
 @include($template->edit('scripts'))
 
 @section('scaffold.css')
-    <link rel="stylesheet" href="{{ asset($file = 'navigation/css/jquery.nestable.css') . '?' . filemtime(public_path($file)) }}">
+    <link rel="stylesheet" href="{{ mix($file = 'admin/navigation/nestable.css') }}">
 @append
 
 @section('scaffold.js')
-    <script src="{{ asset($file = 'navigation/js/jquery.nestable.js') . '?' . filemtime(public_path($file)) }}"></script>
-    <script src="{{ asset($file = 'navigation/js/navigation.js') . '?' . filemtime(public_path($file)) }}"></script>
+    <script src="{{ asset($file = 'admin/navigation/nestable.js') . '?' . filemtime(public_path($file)) }}"></script>
+    <script src="{{ asset($file = 'admin/navigation/navigation.js') . '?' . filemtime(public_path($file)) }}"></script>
 
     <script type="text/html" id="navigable-template">
         <li class="dd-item dd3-item" data-id="{identifier}">

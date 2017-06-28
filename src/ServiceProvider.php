@@ -47,7 +47,7 @@ class ServiceProvider extends BaseServiceProvider
             ],
             'boilerplate'
         );
-        $this->publishes(["{$baseDir}/publishes/public" => public_path('navigation')], 'public');
+        $this->publishes(["{$baseDir}/publishes/public" => public_path('admin/navigation')], 'navigation');
 
         if (!$this->app->getProvider($sluggable = \Cviebrock\EloquentSluggable\ServiceProvider::class)) {
             $this->app->register($sluggable);
