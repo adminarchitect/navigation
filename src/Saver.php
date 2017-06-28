@@ -49,11 +49,13 @@ class Saver extends AdministratorService
      *
      * @param $collection
      */
-    protected function dropRemovedItems(array $collection = [])
+    protected function dropRemovedItems(array $collection = null)
     {
-        $this->repository->items()
-                         ->whereNotIn('menu_items.id', collect($collection)->flatten())
-                         ->delete();
+        if ($collection) {
+            $this->repository->items()
+                             ->whereNotIn('menu_items.id', collect($collection)->flatten())
+                             ->delete();
+        }
     }
 
     private function getProvider($provider)
@@ -65,7 +67,7 @@ class Saver extends AdministratorService
 
     protected function syncRanking($source = null, $parent = null)
     {
-        $positions = $source ?: $this->ranking;
+        $positions = (array) ($source ?: $this->ranking);
 
         foreach ($positions as $position => $group) {
             $this->repository
