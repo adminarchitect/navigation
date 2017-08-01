@@ -25,6 +25,6 @@
         ]
     },
     "require": {
-        "cviebrock/eloquent-sluggable": "4.2.3"
+        "cviebrock/eloquent-sluggable": "4.2.*"
     }
 }
