@@ -10,7 +10,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
-        if (! defined('_TERRANET_NAVIGATION_')) {
+        if (!defined('_TERRANET_NAVIGATION_')) {
             define('_TERRANET_NAVIGATION_', 1);
         }
 
@@ -57,7 +57,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->app->bind('admin.navigation', function () {
-            return new Manager(config('navigation.providers'));
+            return new Manager;
         });
 
         $this->app->singleton('command.navigation.table', function ($app) {
@@ -65,7 +65,7 @@ class ServiceProvider extends BaseServiceProvider
         });
 
         $this->app->singleton('command.navigation.provider', function ($app) {
-            return new ProviderMakeCommand($app['files'], $app['composer']);
+            return new ProviderMakeCommand($app['files']);
         });
 
         $this->commands(['command.navigation.table', 'command.navigation.provider']);

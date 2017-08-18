@@ -3,7 +3,6 @@
 namespace Terranet\Navigation\Console;
 
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class ProviderMakeCommand extends GeneratorCommand
 {

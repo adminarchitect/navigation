@@ -30,7 +30,7 @@ class NavigationTableCommand extends Command
     protected $files;
 
     /**
-     * @var \Illuminate\Foundation\Composer
+     * @var \Illuminate\Support\Composer
      */
     protected $composer;
 
@@ -52,11 +52,11 @@ class NavigationTableCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $fullPath = $this->createBaseMigration();
 
-        $this->files->put($fullPath, $this->files->get(__DIR__.'/stubs/navigation.stub'));
+        $this->files->put($fullPath, $this->files->get(__DIR__ . '/stubs/navigation.stub'));
 
         $this->info('Migration created successfully!');
 
@@ -72,7 +72,7 @@ class NavigationTableCommand extends Command
     {
         $name = 'create_navigation_tables';
 
-        $path = $this->laravel->databasePath().'/migrations';
+        $path = $this->laravel->databasePath() . '/migrations';
 
         return $this->laravel['migration.creator']->create($name, $path);
     }
