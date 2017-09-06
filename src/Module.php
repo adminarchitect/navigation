@@ -95,7 +95,7 @@ class Module extends Scaffolding implements Navigable, Filtrable, Editable, Vali
     {
         $links = new Element('links');
 
-        $links->setTemplate(function ($item) {
+        $links->display(function ($item) {
             $out = [];
 
             $item->items()->orderBy('rank', 'asc')->limit(5)->get()
