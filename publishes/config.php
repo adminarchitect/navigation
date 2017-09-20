@@ -9,5 +9,10 @@ return [
 
     'paths' => [
         'provider' => "Http/Terranet/Administrator/Navigation/Providers"
-    ]
+    ],
+    
+    # Routes under these prefixes will be skipped from navigation module.
+    'skip' => [
+        'cms', 'horizon', 'api', 'auth'
+    ],
 ];
