@@ -78,9 +78,10 @@ abstract class EloquentProvider extends Provider
         }
 
         $repo = new $this->model;
+        $sortable = $repo->sortableColumn();
 
         return $repo instanceof Translatable
-            ? $repo->translated()->orderBy('tt.' . $repo->sortableColumn())
-            : $repo->orderBy($repo->sortableColumn());
+            ? $repo->translated()->orderBy(is_a($sortable, Expression::class) ? $sortable : 'tt.' . $sortable)
+            : $repo->orderBy($sortable);
     }
 }
