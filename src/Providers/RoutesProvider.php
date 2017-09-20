@@ -72,7 +72,8 @@ class RoutesProvider extends Provider
         return function ($route) {
             $action = $route->getAction();
 
-            if (!is_null($action['prefix'])) {
+            $prefix = array_get($action, 'prefix');
+            if (in_array($prefix, config('navigation.skip'))) {
                 return false;
             }
 
