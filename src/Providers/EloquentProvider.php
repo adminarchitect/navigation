@@ -3,6 +3,7 @@
 namespace Terranet\Navigation\Providers;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Terranet\Navigation\URLContainer;
 use Terranet\Navigation\Wrappers\Eloquent;
