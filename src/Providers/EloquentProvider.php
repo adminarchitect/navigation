@@ -15,6 +15,13 @@ abstract class EloquentProvider extends Provider
      * Eloquent model.
      */
     protected $model;
+    
+    /**
+     * Cached items.
+     * 
+     * @var Collection
+     */
+    protected static $items;
 
     /**
      * Provides a collection of Navigable elements.
@@ -23,11 +30,15 @@ abstract class EloquentProvider extends Provider
      */
     protected function navigable()
     {
-        return $this->repository()
-                    ->get()
-                    ->map(function ($item) {
-                        return new Eloquent($item);
-                    }, []);
+        if (null === static::$items) {
+            static::$items = $this->repository()
+                                  ->get()
+                                  ->map(function ($item) {
+                                      return new Eloquent($item);
+                                  }, []);
+        }
+
+        return static::$items;
     }
 
     /**
