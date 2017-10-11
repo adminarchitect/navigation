@@ -43,14 +43,13 @@
 
 @include($template->edit('scripts'))
 
-@section('scaffold.css')
+@push('scaffold.css')
     <link rel="stylesheet" href="{{ asset($file = 'admin/navigation/nestable.css') }}">
-@append
+@endpush
 
-@section('scaffold.js')
+@push('scaffold.js')
     <script src="{{ asset($file = 'admin/navigation/nestable.js') . '?' . filemtime(public_path($file)) }}"></script>
     <script src="{{ asset($file = 'admin/navigation/navigation.js') . '?' . filemtime(public_path($file)) }}"></script>
-
     <script type="text/html" id="navigable-template">
         <li class="dd-item dd3-item" data-id="{identifier}">
             <div class="dd-handle dd3-handle">&nbsp;</div>
@@ -63,4 +62,4 @@
             </div>
         </li>
     </script>
-@append
+@endpush
