@@ -71,10 +71,10 @@ abstract class EloquentProvider extends Provider
             array_get($navigable['navigable'], 'id')
         );
 
-        return new URLContainer(
+        return (new URLContainer(
             $builder->assemble(),
             $builder->title()
-        );
+        ))->setNavigable($builder->getObject());
     }
 
     /**

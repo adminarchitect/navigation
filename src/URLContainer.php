@@ -8,6 +8,8 @@ class URLContainer
 
     protected $title;
 
+    protected $navigable;
+
     public function __construct($url, $title)
     {
         $this->url = $url;
@@ -28,5 +30,17 @@ class URLContainer
     public function title()
     {
         return $this->title;
+    }
+
+    public function navigable()
+    {
+        return $this->navigable;
+    }
+
+    public function setNavigable($navigable)
+    {
+        $this->navigable = $navigable;
+
+        return $this;
     }
 }
